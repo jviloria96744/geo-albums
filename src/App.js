@@ -1,6 +1,7 @@
 import React from "react";
 import Map from "./components/map/Map";
 import FilterDrawer from "./components/filter/FilterDrawer";
+import PhotoContainer from "./components/photos/PhotoContainer";
 import "./App.css";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <div className="App">
       <Map />
       <FilterDrawer />
+      <PhotoContainer />
     </div>
   );
 }

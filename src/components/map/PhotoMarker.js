@@ -1,33 +1,31 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import PropTypes from "prop-types";
 import { Marker } from "@react-google-maps/api";
-import PhotoDrawer from "../photos/PhotoDrawer";
+import PhotoContext from "../../context/photo/photoContext";
 
-export const PhotoMarker = ({ photoUrl, position, clusterer }) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const PhotoMarker = ({ photo, clusterer }) => {
+  const photoContext = useContext(PhotoContext);
 
-  const toggleDrawer = (state) => {
-    setIsOpen(state);
+  const { togglePhotoContainer, setSelectedMarkers } = photoContext;
+
+  const handleClick = (isOpen) => {
+    setSelectedMarkers([photo]);
+    togglePhotoContainer(isOpen);
   };
+
   return (
     <Fragment>
       <Marker
-        position={{ lat: position.lat, lng: position.lng }}
+        position={{ lat: photo.GPSLat, lng: photo.GPSLng }}
         clusterer={clusterer}
-        onClick={() => toggleDrawer(true)}
-      />
-      <PhotoDrawer
-        photoUrl={photoUrl}
-        isOpen={isOpen}
-        toggleDrawer={toggleDrawer}
+        onClick={() => handleClick(true)}
       />
     </Fragment>
   );
 };
 
 PhotoMarker.propTypes = {
-  photoUrl: PropTypes.string.isRequired,
-  position: PropTypes.object.isRequired,
+  photo: PropTypes.object.isRequired,
   clusterer: PropTypes.object.isRequired,
 };
 export default PhotoMarker;
