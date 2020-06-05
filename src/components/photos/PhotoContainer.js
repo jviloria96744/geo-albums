@@ -1,8 +1,18 @@
 import React, { useContext } from "react";
-import { Modal, Button } from "@material-ui/core";
+import { SwipeableDrawer, useMediaQuery } from "@material-ui/core";
+import Gallery from "react-photo-gallery";
 import PhotoContext from "../../context/photo/photoContext";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 export const PhotoContainer = () => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const useStyles = makeStyles(() => ({
+    paper: {
+      width: matches ? "75%" : "95%",
+    },
+  }));
+  const classes = useStyles();
   const photoContext = useContext(PhotoContext);
   const {
     isPhotoContainerOpen,
@@ -12,31 +22,32 @@ export const PhotoContainer = () => {
 
   const baseUrl = "https://map-image-test.s3-us-west-2.amazonaws.com/";
 
-  const handleClose = () => {
-    togglePhotoContainer(false);
+  const formatPhotos = (photos) => {
+    return photos.map((photo) => {
+      return {
+        src: baseUrl + photo.File,
+        width: photo.ImageWidth,
+        height: photo.ImageLength,
+      };
+    });
   };
 
   if (!isPhotoContainerOpen) {
     return null;
   }
+
   return (
-    <Modal open={isPhotoContainerOpen} onClose={() => handleClose(false)}>
-      <div>
-        <div>
-          <Button onClick={() => handleClose(false)}>Close</Button>
-        </div>
-        {selectedPhotos.map((marker) => {
-          return (
-            <img
-              key={marker.File}
-              src={baseUrl + marker.File}
-              alt=""
-              style={{ height: "400px", width: "600px" }}
-            />
-          );
-        })}
-      </div>
-    </Modal>
+    <SwipeableDrawer
+      anchor="right"
+      open={isPhotoContainerOpen}
+      onClose={() => togglePhotoContainer(false)}
+      onOpen={() => togglePhotoContainer(true)}
+      classes={{
+        paper: classes.paper,
+      }}
+    >
+      <Gallery photos={formatPhotos(selectedPhotos)} />
+    </SwipeableDrawer>
   );
 };
 

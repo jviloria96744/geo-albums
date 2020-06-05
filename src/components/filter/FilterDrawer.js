@@ -1,22 +1,24 @@
 import React, { Fragment } from "react";
-import { Drawer, Typography, Divider } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Drawer, Typography, Divider, useMediaQuery } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Filter from "./Filter";
 
-const useStyles = makeStyles(() => ({
-  paper: {
-    width: "18%",
-    background: "lightgray",
-  },
-}));
-
 const FilterDrawer = () => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const useStyles = makeStyles(() => ({
+    paper: {
+      width: matches ? "18%" : "100%",
+      height: matches ? "100%" : "15%",
+      background: "lightgray",
+    },
+  }));
   const classes = useStyles();
   const filterTypes = ["City", "Country", "Labels"];
 
   return (
     <Drawer
-      anchor="left"
+      anchor={matches ? "left" : "bottom"}
       variant="permanent"
       classes={{
         paper: classes.paper,

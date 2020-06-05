@@ -23,9 +23,20 @@ const Map = () => {
         : filteredPhotos[0].GPSLng,
   };
 
+  const options = {
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false,
+  };
+
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_MAP_API_KEY}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={4}>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={4}
+        options={options}
+      >
         <PhotoClusterer />
       </GoogleMap>
     </LoadScript>

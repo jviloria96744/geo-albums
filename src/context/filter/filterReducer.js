@@ -22,12 +22,19 @@ export default (state, { type, payload }) => {
               } else {
                 valueArray = newFilterValues.map((filter) => filter.value);
               }
-              return (
-                valueArray.includes(photo[filterType]) ||
-                valueArray.length === 0
+
+              let filterIntersection = valueArray.filter((x) =>
+                photo[filterType].includes(x)
               );
+
+              return filterIntersection.length > 0 || valueArray.length === 0;
             }
           );
+
+          if (photo.City.includes("Athens")) {
+            console.log(photo);
+            console.log(filterChecks);
+          }
 
           return filterChecks.every((item) => item);
         }),

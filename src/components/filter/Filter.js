@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-//import { PHOTO_METADATA } from "../../api/photos";
 import FilterContext from "../../context/filter/filterContext";
 
 export const Filter = ({ filterType, filterLabel }) => {
@@ -14,11 +13,7 @@ export const Filter = ({ filterType, filterLabel }) => {
   const getOptions = () => {
     let filterOptions = [];
     filteredPhotos.map((photo) => {
-      if (filterType !== "Labels") {
-        filterOptions = [...filterOptions, photo[filterType]];
-      } else {
-        filterOptions = [...filterOptions, ...photo[filterType]];
-      }
+      filterOptions = [...filterOptions, ...photo[filterType]];
 
       return null;
     });
