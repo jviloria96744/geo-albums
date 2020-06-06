@@ -6,10 +6,10 @@ import PhotoContext from "../../context/photo/photoContext";
 export const PhotoMarker = ({ photo, clusterer }) => {
   const photoContext = useContext(PhotoContext);
 
-  const { togglePhotoContainer, setSelectedMarkers } = photoContext;
+  const { togglePhotoContainer, setSelectedPhotos } = photoContext;
 
   const handleClick = (isOpen) => {
-    setSelectedMarkers([photo]);
+    setSelectedPhotos([photo]);
     togglePhotoContainer(isOpen);
   };
 
@@ -28,4 +28,5 @@ PhotoMarker.propTypes = {
   photo: PropTypes.object.isRequired,
   clusterer: PropTypes.object.isRequired,
 };
+
 export default PhotoMarker;

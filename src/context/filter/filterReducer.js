@@ -11,35 +11,34 @@ export default (state, { type, payload }) => {
           ...state.filterValues,
           [updatedFilterType]: [...newFilterValues],
         },
-        filteredPhotos: PHOTO_METADATA.filter((photo) => {
-          const filterChecks = Object.keys(state.filterValues).map(
-            (filterType) => {
-              let valueArray = [];
-              if (filterType !== updatedFilterType) {
-                valueArray = state.filterValues[filterType].map(
-                  (filter) => filter.value
-                );
-              } else {
-                valueArray = newFilterValues.map((filter) => filter.value);
-              }
-
-              let filterIntersection = valueArray.filter((x) =>
-                photo[filterType].includes(x)
-              );
-
-              return filterIntersection.length > 0 || valueArray.length === 0;
-            }
-          );
-
-          if (photo.City.includes("Athens")) {
-            console.log(photo);
-            console.log(filterChecks);
-          }
-
-          return filterChecks.every((item) => item);
-        }),
+        filteredPhotos: getFilteredPhotos(
+          state,
+          newFilterValues,
+          updatedFilterType
+        ),
       };
     default:
       return state;
   }
+};
+
+const getFilteredPhotos = (state, newFilterValues, updatedFilterType) => {
+  const { filterValues } = state;
+
+  return PHOTO_METADATA.filter((photo) => {
+    const filterChecks = Object.keys(filterValues).map((filterType) => {
+      let valueArray =
+        filterType !== updatedFilterType
+          ? filterValues[filterType].map((filter) => filter.value)
+          : newFilterValues.map((filter) => filter.value);
+
+      if (valueArray.length === 0) {
+        return true;
+      }
+
+      return valueArray.filter((x) => photo[filterType].includes(x)).length > 0;
+    });
+
+    return filterChecks.every((item) => item);
+  });
 };

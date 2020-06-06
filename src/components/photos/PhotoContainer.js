@@ -7,12 +7,14 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 export const PhotoContainer = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
   const useStyles = makeStyles(() => ({
     paper: {
       width: matches ? "75%" : "95%",
     },
   }));
   const classes = useStyles();
+
   const photoContext = useContext(PhotoContext);
   const {
     isPhotoContainerOpen,
@@ -20,7 +22,7 @@ export const PhotoContainer = () => {
     selectedPhotos,
   } = photoContext;
 
-  const baseUrl = "https://map-image-test.s3-us-west-2.amazonaws.com/";
+  const baseUrl = process.env.REACT_APP_BASE_PHOTO_URL;
 
   const formatPhotos = (photos) => {
     return photos.map((photo) => {
@@ -32,22 +34,20 @@ export const PhotoContainer = () => {
     });
   };
 
-  if (!isPhotoContainerOpen) {
-    return null;
-  }
-
   return (
-    <SwipeableDrawer
-      anchor="right"
-      open={isPhotoContainerOpen}
-      onClose={() => togglePhotoContainer(false)}
-      onOpen={() => togglePhotoContainer(true)}
-      classes={{
-        paper: classes.paper,
-      }}
-    >
-      <Gallery photos={formatPhotos(selectedPhotos)} />
-    </SwipeableDrawer>
+    isPhotoContainerOpen && (
+      <SwipeableDrawer
+        anchor="right"
+        open={isPhotoContainerOpen}
+        onClose={() => togglePhotoContainer(false)}
+        onOpen={() => togglePhotoContainer(true)}
+        classes={{
+          paper: classes.paper,
+        }}
+      >
+        <Gallery photos={formatPhotos(selectedPhotos)} />
+      </SwipeableDrawer>
+    )
   );
 };
 

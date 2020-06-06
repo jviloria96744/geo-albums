@@ -20,9 +20,7 @@ const FilterDrawer = () => {
     <Drawer
       anchor={matches ? "left" : "bottom"}
       variant="permanent"
-      classes={{
-        paper: classes.paper,
-      }}
+      classes={{ paper: classes.paper }}
     >
       <Fragment>
         <Typography variant="h4">GeoAlbums</Typography>

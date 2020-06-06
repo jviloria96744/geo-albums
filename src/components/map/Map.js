@@ -12,16 +12,10 @@ const Map = () => {
   const filterContext = useContext(FilterContext);
 
   const { filteredPhotos } = filterContext;
-  const center = {
-    lat:
-      filteredPhotos.length === 0
-        ? 33.69780731201172
-        : filteredPhotos[0].GPSLat,
-    lng:
-      filteredPhotos.length === 0
-        ? -117.88880920410156
-        : filteredPhotos[0].GPSLng,
-  };
+  const center =
+    filteredPhotos.length === 0
+      ? { lat: 33.697, lng: -117.888 }
+      : { lat: filteredPhotos[0].GPSLat, lng: filteredPhotos[0].GPSLng };
 
   const options = {
     mapTypeControl: false,

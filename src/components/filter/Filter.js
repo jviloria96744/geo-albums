@@ -14,11 +14,10 @@ export const Filter = ({ filterType, filterLabel }) => {
     let filterOptions = [];
     filteredPhotos.map((photo) => {
       filterOptions = [...filterOptions, ...photo[filterType]];
-
       return null;
     });
-    filterOptions = [...new Set(filterOptions)];
-    filterOptions.sort();
+
+    filterOptions = [...new Set(filterOptions)].sort();
     return filterOptions.map((option) => {
       return { Label: option, value: option };
     });
@@ -27,7 +26,7 @@ export const Filter = ({ filterType, filterLabel }) => {
   useEffect(() => {
     setsearchOptions(getOptions());
     // eslint-disable-next-line
-  }, []);
+  }, [filteredPhotos]);
 
   return (
     <Autocomplete
