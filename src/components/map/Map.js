@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import PhotoClusterer from "./PhotoClusterer";
-import FilterContext from "../../context/filter/filterContext";
+import PhotoContext from "../../context/photo/photoContext";
 
 const containerStyle = {
   width: "100vw",
@@ -9,9 +9,9 @@ const containerStyle = {
 };
 
 const Map = () => {
-  const filterContext = useContext(FilterContext);
+  const photoContext = useContext(PhotoContext);
 
-  const { filteredPhotos } = filterContext;
+  const { filteredPhotos } = photoContext;
   const center =
     filteredPhotos.length === 0
       ? { lat: 33.697, lng: -117.888 }

@@ -2,13 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import FilterContext from "../../context/filter/filterContext";
+import PhotoContext from "../../context/photo/photoContext";
 
 export const Filter = ({ filterType, filterLabel }) => {
   const [searchOptions, setsearchOptions] = useState([]);
 
-  const filterContext = useContext(FilterContext);
-  const { filteredPhotos, filterValues, updateFilters } = filterContext;
+  const photoContext = useContext(PhotoContext);
+  const { filteredPhotos, filterValues, updateFilters } = photoContext;
 
   const getOptions = () => {
     let filterOptions = [];

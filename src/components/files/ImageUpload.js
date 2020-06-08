@@ -1,26 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import ImageUploader from "react-images-upload";
-import { photoApi } from "../../api/photos/photoApi";
+import PhotoContext from "../../context/photo/photoContext";
 import "./ImageUpload.css";
 
 const ImageUpload = () => {
+  const photoContext = useContext(PhotoContext);
+
   const onDrop = (photos) => {
-    console.log(photos);
     photos.map((photo) => {
       const reader = new FileReader();
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading has failed");
-      reader.onload = () => {
-        //Sending image as base 64 string
-        photoApi.post(
-          "/upload_photo",
-          JSON.stringify({
-            data: reader.result,
-            name: photo.name,
-          })
-        );
-        return null;
-      };
+      reader.onload = () =>
+        photoContext.uploadNewPhoto(reader.result, photo.name);
+
       reader.readAsDataURL(photo);
       return null;
     });

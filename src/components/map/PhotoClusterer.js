@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
 import { MarkerClusterer } from "@react-google-maps/api";
 import PhotoMarker from "./PhotoMarker";
-import FilterContext from "../../context/filter/filterContext";
 import PhotoContext from "../../context/photo/photoContext";
 
 export const PhotoClusterer = () => {
-  const filterContext = useContext(FilterContext);
   const photoContext = useContext(PhotoContext);
-
-  const { filteredPhotos } = filterContext;
-  const { setSelectedPhotos, togglePhotoContainer } = photoContext;
+  const {
+    setSelectedPhotos,
+    togglePhotoContainer,
+    filteredPhotos,
+  } = photoContext;
 
   const options = {
     imagePath:
