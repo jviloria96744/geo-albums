@@ -1,0 +1,6 @@
+.image-uploader {
+  border: none;
+}
+.image-uploader > .fileContainer {
+  background: lightgray;
+}

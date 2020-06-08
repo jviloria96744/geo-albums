@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { Drawer, Typography, Divider, useMediaQuery } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Filter from "./Filter";
+import ImageUpload from "../files/ImageUpload";
 
 const FilterDrawer = () => {
   const theme = useTheme();
@@ -33,6 +34,11 @@ const FilterDrawer = () => {
             <Filter filterType={filter} filterLabel={filter} key={filter} />
           );
         })}
+        <Divider />
+        <Typography variant="h5" style={{ marginTop: "3vh" }}>
+          Upload Files
+        </Typography>
+        <ImageUpload />
       </Fragment>
     </Drawer>
   );
