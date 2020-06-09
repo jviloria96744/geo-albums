@@ -3,6 +3,7 @@ import { Drawer, Typography, Divider, useMediaQuery } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Filter from "./Filter";
 import ImageUpload from "../files/ImageUpload";
+import UserLogin from "../user/UserLogin";
 
 const FilterDrawer = () => {
   const theme = useTheme();
@@ -26,7 +27,12 @@ const FilterDrawer = () => {
       <Fragment>
         <Typography variant="h4">GeoAlbums</Typography>
         <Divider />
-        <Typography variant="h5" style={{ marginTop: "3vh" }}>
+        <Typography variant="h6" style={{ marginTop: "3vh" }}>
+          Login/Create Account
+        </Typography>
+        <UserLogin />
+        <Divider />
+        <Typography variant="h6" style={{ marginTop: "3vh" }}>
           Filters
         </Typography>
         {filterTypes.map((filter) => {
@@ -35,7 +41,7 @@ const FilterDrawer = () => {
           );
         })}
         <Divider />
-        <Typography variant="h5" style={{ marginTop: "3vh" }}>
+        <Typography variant="h6" style={{ marginTop: "3vh" }}>
           Upload Files
         </Typography>
         <ImageUpload />

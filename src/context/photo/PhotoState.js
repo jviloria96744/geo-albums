@@ -40,13 +40,10 @@ const PhotoState = (props) => {
   };
 
   const uploadNewPhoto = async (photoData, name) => {
-    const res = await photoApi.post(
-      "/upload_photo",
-      JSON.stringify({
-        image: photoData,
-        name: name,
-      })
-    );
+    const res = await photoApi.post("/upload_photo", {
+      image: photoData,
+      name: name,
+    });
 
     console.log(res);
 
