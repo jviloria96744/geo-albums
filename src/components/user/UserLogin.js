@@ -4,31 +4,45 @@ import {
   Button,
   InputAdornment,
   CircularProgress,
+  Typography,
 } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import UserContext from "../../context/user/userContext";
 
 const UserLogin = () => {
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
+  const [userValue, setUserValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const userContext = useContext(UserContext);
-  const { creatingUser, createLoginUser } = userContext;
+  const { creatingUser, createLoginUser, setShowUserForm, alert } = userContext;
 
   const handleButtonClick = () => {
-    createLoginUser(user, password);
+    createLoginUser(userValue, passwordValue);
+  };
+
+  const handleBackClick = () => {
+    setShowUserForm(false);
   };
 
   return (
     <form noValidate autoComplete="off">
+      <Typography variant="h6" style={{ marginTop: "3vh" }}>
+        Login/Create Account
+      </Typography>
+      <KeyboardBackspaceIcon
+        onClick={() => handleBackClick()}
+        style={{ cursor: "pointer" }}
+      />
       <div>
         <TextField
           label="Username"
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
+          value={userValue}
+          onChange={(e) => setUserValue(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -38,12 +52,13 @@ const UserLogin = () => {
           }}
         />
       </div>
+
       <div>
         <TextField
           type={!showPassword ? "password" : "text"}
           label="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={passwordValue}
+          onChange={(e) => setPasswordValue(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -63,11 +78,12 @@ const UserLogin = () => {
           }}
         />
       </div>
+
       <div>
         <Button
           color="primary"
           style={{ width: "100%" }}
-          disabled={user === "" || password === ""}
+          disabled={userValue === "" || passwordValue === ""}
           onClick={() => handleButtonClick()}
         >
           {creatingUser ? (
@@ -77,6 +93,7 @@ const UserLogin = () => {
           )}
         </Button>
       </div>
+      {alert.length > 0 && <Alert severity="error">{alert}</Alert>}
     </form>
   );
 };

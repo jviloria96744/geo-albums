@@ -1,17 +1,15 @@
 import React, { Fragment } from "react";
-import { Drawer, Typography, Divider, useMediaQuery } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Filter from "./Filter";
+import { Drawer, Typography, Divider } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import Filter from "../filter/Filter";
 import ImageUpload from "../files/ImageUpload";
-import UserLogin from "../user/UserLogin";
+import UserAccount from "../user/UserAccount";
 
-const FilterDrawer = () => {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+const WebDrawer = () => {
   const useStyles = makeStyles(() => ({
     paper: {
-      width: matches ? "18%" : "100%",
-      height: matches ? "100%" : "15%",
+      width: "20%",
+      height: "100%",
       background: "lightgray",
     },
   }));
@@ -20,17 +18,15 @@ const FilterDrawer = () => {
 
   return (
     <Drawer
-      anchor={matches ? "left" : "bottom"}
+      anchor={"left"}
       variant="permanent"
       classes={{ paper: classes.paper }}
     >
       <Fragment>
         <Typography variant="h4">GeoAlbums</Typography>
         <Divider />
-        <Typography variant="h6" style={{ marginTop: "3vh" }}>
-          Login/Create Account
-        </Typography>
-        <UserLogin />
+        <UserAccount />
+        <ImageUpload />
         <Divider />
         <Typography variant="h6" style={{ marginTop: "3vh" }}>
           Filters
@@ -41,13 +37,9 @@ const FilterDrawer = () => {
           );
         })}
         <Divider />
-        <Typography variant="h6" style={{ marginTop: "3vh" }}>
-          Upload Files
-        </Typography>
-        <ImageUpload />
       </Fragment>
     </Drawer>
   );
 };
 
-export default FilterDrawer;
+export default WebDrawer;

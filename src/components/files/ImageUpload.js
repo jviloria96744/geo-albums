@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, Fragment } from "react";
+import { Typography, Divider } from "@material-ui/core";
 import ImageUploader from "react-images-upload";
 import PhotoContext from "../../context/photo/photoContext";
+import UserContext from "../../context/user/userContext";
 import "./ImageUpload.css";
 
 const ImageUpload = () => {
   const photoContext = useContext(PhotoContext);
+  const userContext = useContext(UserContext);
 
   const onDrop = (photos) => {
     photos.map((photo) => {
@@ -19,16 +22,26 @@ const ImageUpload = () => {
     });
   };
 
+  if (userContext.user === null) {
+    return null;
+  }
+
   return (
-    <ImageUploader
-      //{...props}
-      withIcon={true}
-      onChange={onDrop}
-      imgExtension={[".jpg"]}
-      maxFileSize={5242880 * 2}
-      label="Max file size: 10mb, accepted: jpg"
-      className="image-uploader"
-    />
+    <Fragment>
+      <Divider />
+      <Typography variant="h6" style={{ marginTop: "3vh" }}>
+        Upload Files
+      </Typography>
+      <ImageUploader
+        //{...props}
+        withIcon={true}
+        onChange={onDrop}
+        imgExtension={[".jpg"]}
+        maxFileSize={5242880 * 2}
+        label="Max file size: 10mb, accepted: jpg"
+        className="image-uploader"
+      />
+    </Fragment>
   );
 };
 
