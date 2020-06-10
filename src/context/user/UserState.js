@@ -41,6 +41,18 @@ const UserState = (props) => {
     });
   };
 
+  const deleteUser = async (username) => {
+    const res = await userApi.post("/delete_account", {
+      username,
+    });
+
+    console.log(res);
+
+    dispatch({
+      type: LOGOUT_USER,
+    });
+  };
+
   const setCreatingUser = () => {
     dispatch({ type: SET_CREATING_USER });
   };
@@ -62,6 +74,7 @@ const UserState = (props) => {
         createLoginUser,
         setShowUserForm,
         logoutUser,
+        deleteUser,
       }}
     >
       {props.children}

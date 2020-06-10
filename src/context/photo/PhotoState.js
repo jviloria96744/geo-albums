@@ -8,6 +8,7 @@ import {
   UPLOAD_NEW_PHOTO,
   UPDATE_FILTERS,
   SET_NEW_USER_PHOTOS,
+  SET_IMAGES_UPLOADING,
 } from "../types";
 import { PHOTO_METADATA } from "../../api/photos";
 
@@ -16,6 +17,7 @@ const PhotoState = (props) => {
     allPhotos: [],
     filteredPhotos: [],
     isPhotoContainerOpen: false,
+    imagesUploading: false,
     selectedPhotos: [],
     filterValues: {
       City: [],
@@ -40,11 +42,17 @@ const PhotoState = (props) => {
     });
   };
 
+  const setImagesUploading = () => {
+    dispatch({
+      type: SET_IMAGES_UPLOADING,
+    });
+  };
+
   const uploadNewPhotos = (photos) => {
+    setImagesUploading();
+
     Promise.all(
       photos.map((photo) => {
-        console.log(photo);
-        console.log("Filling each element of promise array");
         return photoApi.post("/upload_photo", {
           image: photo.photoData,
           name: photo.photoName,
@@ -52,8 +60,9 @@ const PhotoState = (props) => {
         });
       })
     ).then((results) => {
-      const uploadedPhotos = results.map((res) => {
-        return !res.data.Error
+      const goodPhotos = results.filter((res) => res.data.Error !== "Error");
+      const uploadedPhotos = goodPhotos.map((res) => {
+        return "undefined" !== res.data.Error
           ? {
               ...res.data,
               GPSLat: parseFloat(res.data.GPSLat),
@@ -63,6 +72,8 @@ const PhotoState = (props) => {
             }
           : null;
       });
+
+      console.log(uploadedPhotos);
 
       dispatch({
         type: UPLOAD_NEW_PHOTO,
@@ -95,6 +106,7 @@ const PhotoState = (props) => {
         selectedPhotos: state.selectedPhotos,
         filteredPhotos: state.filteredPhotos,
         filterValues: state.filterValues,
+        imagesUploading: state.imagesUploading,
         togglePhotoContainer,
         setSelectedPhotos,
         uploadNewPhotos,

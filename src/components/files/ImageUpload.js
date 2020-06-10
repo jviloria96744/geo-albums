@@ -1,5 +1,5 @@
 import React, { useContext, Fragment } from "react";
-import { Typography, Divider } from "@material-ui/core";
+import { Typography, Divider, CircularProgress } from "@material-ui/core";
 import ImageUploader from "react-images-upload";
 import PhotoContext from "../../context/photo/photoContext";
 import UserContext from "../../context/user/userContext";
@@ -7,7 +7,9 @@ import "./ImageUpload.css";
 
 const ImageUpload = () => {
   const photoContext = useContext(PhotoContext);
+  const { uploadNewPhotos, imagesUploading } = photoContext;
   const userContext = useContext(UserContext);
+  const { user } = userContext;
 
   const onDrop = async (photos) => {
     let photoObjects = [];
@@ -17,11 +19,11 @@ const ImageUpload = () => {
       photoObjects.push({
         photoData: photoData,
         photoName: photo.name,
-        username: userContext.user.username,
+        username: user.username,
       });
     }
 
-    photoContext.uploadNewPhotos(photoObjects);
+    uploadNewPhotos(photoObjects);
   };
 
   const readUploadedImage = (image) => {
@@ -41,8 +43,16 @@ const ImageUpload = () => {
     });
   };
 
-  if (userContext.user === null) {
+  if (user === null) {
     return null;
+  }
+
+  if (imagesUploading) {
+    return (
+      <div style={{ marginTop: "1vh", marginLeft: "9vh" }}>
+        <CircularProgress size={150} color="primary" />
+      </div>
+    );
   }
 
   return (

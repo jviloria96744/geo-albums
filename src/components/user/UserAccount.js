@@ -5,7 +5,13 @@ import UserLogin from "./UserLogin";
 
 const UserAccount = () => {
   const userContext = useContext(UserContext);
-  const { user, showUserForm, setShowUserForm, logoutUser } = userContext;
+  const {
+    user,
+    showUserForm,
+    setShowUserForm,
+    logoutUser,
+    deleteUser,
+  } = userContext;
 
   const handleLoginClick = (e) => {
     e.preventDefault();
@@ -15,6 +21,10 @@ const UserAccount = () => {
   const handleLogoutClick = (e) => {
     e.preventDefault();
     logoutUser();
+  };
+
+  const handleDeleteClick = (e) => {
+    deleteUser(user.username);
   };
 
   if (user === null && !showUserForm) {
@@ -40,6 +50,9 @@ const UserAccount = () => {
       </Typography>
       <Link href="#" onClick={(e) => handleLogoutClick(e)}>
         Logout
+      </Link>
+      <Link href="#" onClick={(e) => handleDeleteClick(e)}>
+        Delete Account
       </Link>
     </Fragment>
   );

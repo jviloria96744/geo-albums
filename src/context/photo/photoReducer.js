@@ -4,6 +4,7 @@ import {
   UPDATE_FILTERS,
   UPLOAD_NEW_PHOTO,
   SET_NEW_USER_PHOTOS,
+  SET_IMAGES_UPLOADING,
 } from "../types";
 
 export default (state, action) => {
@@ -24,6 +25,7 @@ export default (state, action) => {
     case UPLOAD_NEW_PHOTO:
       return {
         ...state,
+        imagesUploading: false,
         allPhotos: !action.payload
           ? [...state.allPhotos, ...action.payload]
           : state.allPhotos,
@@ -59,6 +61,12 @@ export default (state, action) => {
           Country: [],
           Labels: [],
         },
+      };
+
+    case SET_IMAGES_UPLOADING:
+      return {
+        ...state,
+        imagesUploading: true,
       };
     default:
       return state;
