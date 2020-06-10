@@ -3,6 +3,7 @@ import {
   SET_SELECTED_PHOTOS,
   UPDATE_FILTERS,
   UPLOAD_NEW_PHOTO,
+  SET_NEW_USER_PHOTOS,
 } from "../types";
 
 export default (state, action) => {
@@ -23,9 +24,11 @@ export default (state, action) => {
     case UPLOAD_NEW_PHOTO:
       return {
         ...state,
-        allPhotos: [...state.allPhotos, action.payload],
+        allPhotos: !action.payload
+          ? [...state.allPhotos, ...action.payload]
+          : state.allPhotos,
         filteredPhotos: getFilteredPhotos(
-          [...state.allPhotos, action.payload],
+          [...state.allPhotos, ...action.payload],
           state.filterValues
         ),
       };
@@ -42,6 +45,20 @@ export default (state, action) => {
           ...state.filterValues,
           [updatedFilterType]: [...newFilterValues],
         }),
+      };
+
+    case SET_NEW_USER_PHOTOS:
+      return {
+        ...state,
+        allPhotos: action.payload,
+        filteredPhotos: action.payload,
+        isPhotoContainerOpen: false,
+        selectedPhotos: [],
+        filterValues: {
+          City: [],
+          Country: [],
+          Labels: [],
+        },
       };
     default:
       return state;

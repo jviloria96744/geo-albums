@@ -7,13 +7,14 @@ import {
   SET_SELECTED_PHOTOS,
   UPLOAD_NEW_PHOTO,
   UPDATE_FILTERS,
+  SET_NEW_USER_PHOTOS,
 } from "../types";
 import { PHOTO_METADATA } from "../../api/photos";
 
 const PhotoState = (props) => {
   const initialState = {
-    allPhotos: PHOTO_METADATA,
-    filteredPhotos: PHOTO_METADATA,
+    allPhotos: [],
+    filteredPhotos: [],
     isPhotoContainerOpen: false,
     selectedPhotos: [],
     filterValues: {
@@ -39,17 +40,34 @@ const PhotoState = (props) => {
     });
   };
 
-  const uploadNewPhoto = async (photoData, name) => {
-    const res = await photoApi.post("/upload_photo", {
-      image: photoData,
-      name: name,
-    });
+  const uploadNewPhotos = (photos) => {
+    Promise.all(
+      photos.map((photo) => {
+        console.log(photo);
+        console.log("Filling each element of promise array");
+        return photoApi.post("/upload_photo", {
+          image: photo.photoData,
+          name: photo.photoName,
+          username: photo.username,
+        });
+      })
+    ).then((results) => {
+      const uploadedPhotos = results.map((res) => {
+        return !res.data.Error
+          ? {
+              ...res.data,
+              GPSLat: parseFloat(res.data.GPSLat),
+              GPSLng: parseFloat(res.data.GPSLng),
+              ImageWidth: parseInt(res.data.ImageWidth),
+              ImageLength: parseInt(res.data.ImageLength),
+            }
+          : null;
+      });
 
-    console.log(res);
-
-    dispatch({
-      type: UPLOAD_NEW_PHOTO,
-      payload: res.data,
+      dispatch({
+        type: UPLOAD_NEW_PHOTO,
+        payload: uploadedPhotos,
+      });
     });
   };
 
@@ -63,6 +81,13 @@ const PhotoState = (props) => {
     });
   };
 
+  const setNewUserPhotos = (user) => {
+    dispatch({
+      type: SET_NEW_USER_PHOTOS,
+      payload: !user ? PHOTO_METADATA : user.photos,
+    });
+  };
+
   return (
     <PhotoContext.Provider
       value={{
@@ -72,8 +97,9 @@ const PhotoState = (props) => {
         filterValues: state.filterValues,
         togglePhotoContainer,
         setSelectedPhotos,
-        uploadNewPhoto,
+        uploadNewPhotos,
         updateFilters,
+        setNewUserPhotos,
       }}
     >
       {props.children}

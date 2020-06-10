@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import PhotoClusterer from "./PhotoClusterer";
 import PhotoContext from "../../context/photo/photoContext";
+import UserContext from "../../context/user/userContext";
 
 const containerStyle = {
   width: "100vw",
@@ -10,8 +11,17 @@ const containerStyle = {
 
 const Map = () => {
   const photoContext = useContext(PhotoContext);
+  const userContext = useContext(UserContext);
 
-  const { filteredPhotos } = photoContext;
+  const { user } = userContext;
+
+  const { filteredPhotos, setNewUserPhotos } = photoContext;
+
+  useEffect(() => {
+    setNewUserPhotos(user);
+    // eslint-disable-next-line
+  }, [user]);
+
   const center =
     filteredPhotos.length === 0
       ? { lat: 33.697, lng: -117.888 }

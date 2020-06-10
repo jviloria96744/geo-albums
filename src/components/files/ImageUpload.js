@@ -9,16 +9,35 @@ const ImageUpload = () => {
   const photoContext = useContext(PhotoContext);
   const userContext = useContext(UserContext);
 
-  const onDrop = (photos) => {
-    photos.map((photo) => {
-      const reader = new FileReader();
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading has failed");
-      reader.onload = () =>
-        photoContext.uploadNewPhoto(reader.result, photo.name);
+  const onDrop = async (photos) => {
+    let photoObjects = [];
+    for (let index = 0; index < photos.length; index++) {
+      const photo = photos[index];
+      const photoData = await readUploadedImage(photo);
+      photoObjects.push({
+        photoData: photoData,
+        photoName: photo.name,
+        username: userContext.user.username,
+      });
+    }
 
-      reader.readAsDataURL(photo);
-      return null;
+    photoContext.uploadNewPhotos(photoObjects);
+  };
+
+  const readUploadedImage = (image) => {
+    const temporaryFileReader = new FileReader();
+
+    return new Promise((resolve, reject) => {
+      temporaryFileReader.onerror = () => {
+        temporaryFileReader.abort();
+        reject(new DOMException("Problem parsing input file."));
+      };
+
+      temporaryFileReader.onload = () => {
+        //console.log("Done reading");
+        resolve(temporaryFileReader.result);
+      };
+      temporaryFileReader.readAsDataURL(image);
     });
   };
 
