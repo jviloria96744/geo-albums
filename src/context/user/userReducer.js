@@ -1,9 +1,4 @@
-import {
-  CREATE_LOGIN_USER,
-  SET_CREATING_USER,
-  SET_SHOW_USER_FORM,
-  LOGOUT_USER,
-} from "../types";
+import { CREATE_LOGIN_USER, SET_CREATING_USER, LOGOUT_USER } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -20,7 +15,6 @@ export default (state, action) => {
         ...state,
         user: null,
         alert: "",
-        showUserForm: true,
       };
 
     case SET_CREATING_USER:
@@ -29,11 +23,6 @@ export default (state, action) => {
         creatingUser: true,
       };
 
-    case SET_SHOW_USER_FORM:
-      return {
-        ...state,
-        showUserForm: action.payload,
-      };
     default:
       return state;
   }

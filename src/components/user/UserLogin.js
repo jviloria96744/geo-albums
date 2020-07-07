@@ -10,7 +10,6 @@ import Alert from "@material-ui/lab/Alert";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import UserContext from "../../context/user/userContext";
 
 const UserLogin = () => {
@@ -19,14 +18,10 @@ const UserLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const userContext = useContext(UserContext);
-  const { creatingUser, createLoginUser, setShowUserForm, alert } = userContext;
+  const { creatingUser, createLoginUser, alert } = userContext;
 
   const handleButtonClick = () => {
     createLoginUser(userValue, passwordValue);
-  };
-
-  const handleBackClick = () => {
-    setShowUserForm(false);
   };
 
   return (
@@ -34,10 +29,6 @@ const UserLogin = () => {
       <Typography variant="h6" style={{ marginTop: "3vh" }}>
         Login/Create Account
       </Typography>
-      <KeyboardBackspaceIcon
-        onClick={() => handleBackClick()}
-        style={{ cursor: "pointer" }}
-      />
       <div>
         <TextField
           label="Username"
