@@ -1,5 +1,8 @@
 import axios from "axios";
 
 export const userApi = axios.create({
-  baseURL: "http://127.0.0.1:5000/",
+  baseURL: "https://4j48yielsl.execute-api.us-west-2.amazonaws.com/DEV",
+  headers: {
+    "x-api-key": process.env.REACT_APP_APIGW_KEY,
+  },
 });

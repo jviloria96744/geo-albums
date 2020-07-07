@@ -16,10 +16,13 @@ const UserState = (props) => {
   const createLoginUser = async (username, password) => {
     setCreatingUser();
 
-    const res = await userApi.post("/get_create_user", {
-      username,
-      password,
-    });
+    const res = await userApi.post(
+      "/user",
+      JSON.stringify({
+        username,
+        password,
+      })
+    );
 
     console.log(res);
 
@@ -36,7 +39,7 @@ const UserState = (props) => {
   };
 
   const deleteUser = async (username) => {
-    const res = await userApi.post("/delete_account", {
+    const res = await userApi.delete("/user", {
       username,
     });
 
