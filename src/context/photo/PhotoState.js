@@ -53,11 +53,28 @@ const PhotoState = (props) => {
 
     Promise.all(
       photos.map((photo) => {
-        return photoApi.post("/upload_photo", {
-          image: photo.photoData,
-          name: photo.photoName,
-          username: photo.username,
-        });
+        if (
+          JSON.stringify({
+            image: photo.photoData,
+            name: photo.photoName,
+            username: photo.username,
+          }).length > 6144000
+        ) {
+          return {
+            data: {
+              Error: "Error",
+            },
+          };
+        }
+
+        return photoApi.post(
+          "/photo",
+          JSON.stringify({
+            image: photo.photoData,
+            name: photo.photoName,
+            username: photo.username,
+          })
+        );
       })
     ).then((results) => {
       const goodPhotos = results.filter((res) => res.data.Error !== "Error");

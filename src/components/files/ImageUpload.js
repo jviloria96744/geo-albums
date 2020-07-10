@@ -66,8 +66,8 @@ const ImageUpload = () => {
         withIcon={true}
         onChange={onDrop}
         imgExtension={[".jpg"]}
-        maxFileSize={5242880 * 2}
-        label="Max file size: 10mb, accepted: jpg"
+        maxFileSize={5120000}
+        label="Max file size: 5mb, accepted: jpg"
         className="image-uploader"
       />
     </Fragment>

@@ -39,9 +39,12 @@ const UserState = (props) => {
   };
 
   const deleteUser = async (username) => {
-    const res = await userApi.delete("/user", {
-      username,
-    });
+    const res = await userApi.delete(
+      "/user",
+      JSON.stringify({
+        username,
+      })
+    );
 
     console.log(res);
 

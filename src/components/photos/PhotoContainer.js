@@ -27,7 +27,7 @@ export const PhotoContainer = () => {
   const formatPhotos = (photos) => {
     return photos.map((photo) => {
       return {
-        src: baseUrl + photo.File,
+        src: baseUrl + photo.ThumbnailFileName,
         width: photo.ImageWidth,
         height: photo.ImageLength,
       };
