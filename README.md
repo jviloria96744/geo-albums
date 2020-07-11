@@ -23,3 +23,5 @@ These are the following enhancements I want to make, in no particular order:
 - **Mobile Platform/Responsiveness**: Currently, the site is not responsive and needs some mobile specific styling. In fact the UI in general is very much in a work-in-progress state. I want to do two things; (1) make a simple version that can be viewed on the browser of a mobile device, (2) Mobile App that offers slightly different functionality, e.g. camera integration
 
 - **Public Account Access**: By offering account creation functionality, I would like to add the ability to make the user's map/profile public (with added granularity of controls) to other accounts of the user's choosing.
+
+- **CI/CD**: I would like to use a combination of CloudFormation/SAM/GitHub Actions to make this reproducible and build a good CI/CD Pipeline for future development
