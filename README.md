@@ -6,7 +6,7 @@ This application is meant to view your photos by location (GPS Coordinates) and 
 
 Upon load, there are references to pre-loaded images that the user can interact with to get an idea behind application functionality.
 
-When making an account, account data is stored in Amazon DynamoDB and any images that are uploaded are stored in an Amazon S3 bucket. All image processing is done using AWS Lambda through an Amazon API Gateway Endpoint. Everything sits behind two Amazon CloudFront distributions; one for the static site, one for the images. I haven't purchased a custom domain use in front of the CloudFront distributions simply because I am not yet set on the name of the application.
+When making an account, account data is stored in Amazon DynamoDB and any images that are uploaded are stored in an Amazon S3 bucket. All image processing is done using AWS Lambda through an Amazon API Gateway Endpoint. Everything sits behind two Amazon CloudFront distributions; one for the static site, one for the images. I haven't purchased a custom domain to use in front of the CloudFront distributions simply because I am not yet set on the name of the application.
 
 ## Next-Ups
 
