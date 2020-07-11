@@ -1,68 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# GeoAlbums
 
-## Available Scripts
+This is the repo behind the [GeoAlbums](https://d2cndobv2blzcj.cloudfront.net/) web application.
 
-In the project directory, you can run:
+This application is meant to view your photos by location (GPS Coordinates) and provide filters based on the content of the photos (Amazon Rekognition).
 
-### `npm start`
+Upon load, there are references to pre-loaded images that the user can interact with to get an idea behind application functionality.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+When making an account, account data is stored in Amazon DynamoDB and any images that are uploaded are stored in an Amazon S3 bucket. All image processing is done using AWS Lambda through an Amazon API Gateway Endpoint. Everything sits behind two Amazon CloudFront distributions; one for the static site, one for the images. I haven't purchased a custom domain use in front of the CloudFront distributions simply because I am not yet set on the name of the application.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Next-Ups
 
-### `npm test`
+These are the following enhancements I want to make, in no particular order:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Alerts/Dialogs**: More helper messages/dialog boxes for the user, especially in regards to creating/deleting an account and uploading/filtering photos
 
-### `npm run build`
+- **Interactive Map Functionality**: More functionality and customization with regards to components on the map, e.g. custom map markers.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **3rd party identification**: I want to enable Federated Identities for account creation.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- **Direct Photo Upload to S3 Through AWS SDK**: This is related to the previous point. I originally intended for all traffic between the client and "server"/back-end to be through API Gateway. Unfortunately, API Gateway only allows a max payload of 6MB to AWS Lambda. This restricts uploads on many images. A way around this is to upload directly to S3 using the AWS SDK. Using the 3rd party identification allows for simple token generation for temporary access.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Mobile Platform/Responsiveness**: Currently, the site is not responsive and needs some mobile specific styling. In fact the UI in general is very much in a work-in-progress state. I want to do two things; (1) make a simple version that can be viewed on the browser of a mobile device, (2) Mobile App that offers slightly different functionality, e.g. camera integration
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- **Public Account Access**: By offering account creation functionality, I would like to add the ability to make the user's map/profile public (with added granularity of controls) to other accounts of the user's choosing.
