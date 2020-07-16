@@ -8,6 +8,10 @@ Upon load, there are references to pre-loaded images that the user can interact 
 
 When making an account, account data is stored in Amazon DynamoDB and any images that are uploaded are stored in an Amazon S3 bucket. All image processing is done using AWS Lambda ([functions](https://github.com/jviloria96744/geo-albums-poc-lambda-functions)) through an Amazon API Gateway Endpoint. Everything sits behind two Amazon CloudFront distributions; one for the static site, one for the images. I haven't purchased a custom domain to use in front of the CloudFront distributions simply because I am not yet set on the name of the application.
 
+## Example Activity
+
+![Gif-Goes-Here](https://s3-us-west-2.amazonaws.com/assets.jayviloria.com/geoalbums-app-activity-resized.gif)
+
 ## Next-Ups
 
 These are the following enhancements I want to make, in no particular order:
