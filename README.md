@@ -10,7 +10,7 @@ When making an account, account data is stored in Amazon DynamoDB and any images
 
 ## Example Activity
 
-![Gif-Goes-Here](https://s3-us-west-2.amazonaws.com/assets.jayviloria.com/geoalbums-app-activity-resized.gif)
+![Gif-Goes-Here](https://jviloria.com/images/geoalbums-app-activity-resized.gif)
 
 ## Next-Ups
 
