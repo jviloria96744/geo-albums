@@ -4,6 +4,11 @@ import PhotoClusterer from "./PhotoClusterer";
 import PhotoContext from "../../context/photo/photoContext";
 import UserContext from "../../context/user/userContext";
 
+/**
+ *
+ * Component for the Map portion of the UI, default location set to my address, all non-relevant controls removed
+ */
+
 const containerStyle = {
   width: "100vw",
   height: "100vh",

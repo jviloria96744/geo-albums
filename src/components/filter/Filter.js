@@ -4,6 +4,11 @@ import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import PhotoContext from "../../context/photo/photoContext";
 
+/**
+ *
+ * Component for Photo Filters, filters exist for city, country, and photo content, e.g. food, architecture
+ */
+
 export const Filter = ({ filterType, filterLabel }) => {
   const [searchOptions, setsearchOptions] = useState([]);
 
@@ -46,7 +51,13 @@ export const Filter = ({ filterType, filterLabel }) => {
 };
 
 Filter.propTypes = {
+  /**
+   * Filter Type used to access data from the API response
+   */
   filterType: PropTypes.string.isRequired,
+  /**
+   * Filter Label that is displayed in the UI
+   */
   filterLabel: PropTypes.string.isRequired,
 };
 

@@ -4,6 +4,11 @@ import Gallery from "react-photo-gallery";
 import PhotoContext from "../../context/photo/photoContext";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
+/**
+ *
+ * Component to display photo(s).  Width of container displaying photos depends on screen size.  I am not yet set on the layout for smaller (mobile) screen sizes.
+ */
+
 export const PhotoContainer = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));

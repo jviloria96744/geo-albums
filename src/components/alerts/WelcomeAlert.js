@@ -8,6 +8,10 @@ import {
   Button,
 } from "@material-ui/core";
 
+/**
+ *
+ * Component for displaying alert on page load to give the user an introduction to the application
+ */
 const WelcomeAlert = () => {
   const [open, setOpen] = useState(true);
 

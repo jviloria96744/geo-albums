@@ -3,6 +3,11 @@ import { MarkerClusterer } from "@react-google-maps/api";
 import PhotoMarker from "./PhotoMarker";
 import PhotoContext from "../../context/photo/photoContext";
 
+/**
+ *
+ * Component for clusters of markers that are displayed at low zoom levels.  On clicking, a photo drawer is displayed with all the photos associated with the cluster shown as a collage.
+ */
+
 export const PhotoClusterer = () => {
   const photoContext = useContext(PhotoContext);
   const {

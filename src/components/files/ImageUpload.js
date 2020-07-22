@@ -5,6 +5,11 @@ import PhotoContext from "../../context/photo/photoContext";
 import UserContext from "../../context/user/userContext";
 import "./ImageUpload.css";
 
+/**
+ *
+ * Component for uploading images
+ */
+
 const ImageUpload = () => {
   const photoContext = useContext(PhotoContext);
   const { uploadNewPhotos, imagesUploading } = photoContext;

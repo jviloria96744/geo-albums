@@ -12,6 +12,12 @@ import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import UserContext from "../../context/user/userContext";
 
+/**
+ *
+ * Component that handles and displays form for user to login/create account
+ * I want to later replace this with an OAuth sign-in component
+ */
+
 const UserLogin = () => {
   const [userValue, setUserValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");

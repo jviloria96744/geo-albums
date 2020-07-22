@@ -3,6 +3,12 @@ import { Typography, Link } from "@material-ui/core";
 import UserContext from "../../context/user/userContext";
 import UserLogin from "./UserLogin";
 
+/**
+ *
+ * Component that displays options for user to login/create/delete account
+ * I want to later replace this with an OAuth sign-in component
+ */
+
 const UserAccount = () => {
   const userContext = useContext(UserContext);
   const { user, logoutUser, deleteUser } = userContext;

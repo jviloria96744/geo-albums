@@ -5,6 +5,11 @@ import Filter from "../filter/Filter";
 import ImageUpload from "../files/ImageUpload";
 import UserAccount from "../user/UserAccount";
 
+/**
+ *
+ * Drawer meant for standard screen sizes, I am still unsure on the layout for mobile platforms
+ */
+
 const WebDrawer = () => {
   const useStyles = makeStyles(() => ({
     paper: {
